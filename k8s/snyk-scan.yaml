@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: snyk-iac-scan
+  annotations:
+    argocd.argoproj.io/hook: PreSync
+spec:
+  ttlSecondsAfterFinished: 600
+  template:
+    spec:
+      containers:
+      - name: snyk-cli
+        image: snyk/snyk-cli:npm
+        command: ["/bin/sh","-c"]
+        args:
+          - git clone https://github.com/jiajunngjj/flask-polling-app.git;
+            snyk auth $SNYK_TOKEN;
+            snyk iac test flask-polling-app/argocd/polling-app.yaml || true;
+        env:
+          - name: SNYK_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: snyk-token
+                key: token
+      restartPolicy: Never
+  backoffLimit: 0

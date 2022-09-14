@@ -1,0 +1,37 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: polling-app
+spec:
+  ports:
+  - name: 8080-tcp
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: polling-app
+  type: LoadBalancer
+
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: polling-app
+spec:
+  replicas: 1
+  selector:
+   matchLabels:
+    app: polling-app
+  template:
+    metadata:
+      labels:
+        app: polling-app
+    spec:
+      containers:
+      - image: jiajunngjj/polling-app:latest
+        name: polling-app
+        ports:
+        - containerPort: 8080
+      restartPolicy: "Always"

@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: polling-app:0.1.5
+  name: flask
 spec:
   ports:
   - name: 8080-tcp
@@ -10,7 +10,7 @@ spec:
     protocol: TCP
     targetPort: 8080
   selector:
-    app: polling-app:0.1.5
+    app: flask
   type: LoadBalancer
 
 
@@ -18,20 +18,20 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: polling-app:0.1.5
+  name: flask
 spec:
   replicas: 1
   selector:
    matchLabels:
-    app: polling-app:0.1.5
+    app: flask
   template:
     metadata:
       labels:
-        app: polling-app:0.1.5
+        app: flask
     spec:
       containers:
       - image: jiajunngjj/polling-app:0.1.5
-        name: polling-app:0.1.5
+        name: flask-app
         ports:
         - containerPort: 8080
       restartPolicy: "Always"

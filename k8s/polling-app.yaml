@@ -30,8 +30,10 @@ spec:
         app: flask
     spec:
       containers:
-      - image: http://harbor.snyk-apj-se.io/library/jiajunngjj/flask-polling-app:latest
+      - image: harbor.snyk-apj-se.io/library/jiajunngjj/flask-polling-app:latest
         name: flask-app
+      imagePullSecrets:
+      - name: harbor-secret
         ports:
         - containerPort: 8080
       restartPolicy: "Always"

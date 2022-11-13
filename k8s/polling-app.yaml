@@ -30,10 +30,8 @@ spec:
         app: flask
     spec:
       containers:
-      - image: flask-polling-app:latest
+      - image: jiajunngjj/flask-polling-app:latest
         name: flask-app
         ports:
         - containerPort: 8080
       restartPolicy: "Always"
-      imagePullSecrets:
-      - name: regcred

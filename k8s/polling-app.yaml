@@ -30,7 +30,7 @@ spec:
         app: flask
     spec:
       containers:
-      - image: jiajunngjj/flask-polling-app:0.1.170
+      - image: jiajunngjj/flask-polling-app:0.1.171
         name: flask-app
         ports:
         - containerPort: 8080
